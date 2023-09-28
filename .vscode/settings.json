@@ -1,6 +1,14 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
     "cSpell.words": [
-        "sunnydays"
+        "ARGB",
+        "geolocator",
+        "openweathermap",
+        "Placemark",
+        "placemarks",
+        "Rblack",
+        "Rwhitebold",
+        "sunnydays",
+        "unfocus"
     ]
 }

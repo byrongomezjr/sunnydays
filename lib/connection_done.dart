@@ -1,58 +1,32 @@
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:sunnydays/call.dart';
 import 'package:sunnydays/constants/constants.dart';
 import 'package:sunnydays/logic/models/weather_model.dart';
-import 'package:sunnydays/logic/services/call_to_api.dart';
+import 'package:universal_html/js.dart';
 
-class WeatherPage extends StatefulWidget {
-  const WeatherPage({Key? key}) : super(key: key);
-
-  @override
-  State<WeatherPage> createState() => _WeatherPageState();
-}
-
-class _WeatherPageState extends State<WeatherPage> {
-  Future<WeatherModel> getData(bool isCurrentCity, String cityName) async {
-    return await CallToApi().callWeatherAPi(isCurrentCity, cityName);
-  }
-
-  TextEditingController textController = TextEditingController(text: "");
-  Future<WeatherModel>? _myData;
-  @override
-  void initState() {
-    setState(() {
-      _myData = getData(true, "");
-    });
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      body: FutureBuilder(
-        builder: (ctx, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If error occurred
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  '${snapshot.error.toString()} occurred',
-                  style: const TextStyle(fontSize: 18),
-                ),
-              );
-
-              // if data has no errors
-            } else if (snapshot.hasData) {
-              // Extracting data from snapshot object
+if (snapshot.connectionState == ConnectionState.done) {
+  // if error encountered
+  // ignore: prefer_typing_uninitialized_variables
+  var snapshot;
+  if (snapshot.hasError) {
+    return Center(
+      child: Text(
+        '${snapshot.error.toString()} occurred',
+        style: const TextStyle(fontSize: 18),
+      ),
+    );
+  } 
+  // if data has no error
+  else if (snapshot.hasData) {
+   // Extracting data from snapshot object
               final data = snapshot.data as WeatherModel;
+              // ignore: prefer_typing_uninitialized_variables
+              var textController;
               return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -84,24 +58,33 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                         onSuffixTap: () async {
                           textController.text == ""
-                              ? log("No city entered")
+                              ? log("No city entered" as num)
                               : setState(() {
                                   _myData = getData(false, textController.text);
                                 });
 
-                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context as BuildContext).unfocus();
                           textController.clear();
                         },
-                        style: f14RblackLetterSpacing2,
-                        onSubmitted: (String) {},
+                        // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+                        style: f14RblackLetterSpacing2, onSubmitted: (String ) {  },
                       ),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              data.city,
-                              style: f24Rwhitebold,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.location_on,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  data.city,
+                                  style: f24Rwhitebold,
+                                ),
+                              ],
                             ),
                             height25,
                             Text(
@@ -120,22 +103,12 @@ class _WeatherPageState extends State<WeatherPage> {
                   ),
                 ),
               );
-            }
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return Center(
-              child: Text("${snapshot.connectionState} occurred"),
-            );
-          }
-          return const Center(
-            child: Text("Server timed out!"),
-          );
-        },
-        future: _myData!,
-      ),
-    );
   }
+}
+
+// ignore: camel_case_types
+class _myData {
+}
+
+setState(Null Function() param0) {
 }
