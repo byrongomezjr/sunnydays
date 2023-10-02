@@ -22,7 +22,7 @@ class CallToApi {
         Placemark place = placemarks[0];
         cityName = place.locality!;
       }
-
+      //http request to the API
       var url = Uri.https('api.openweathermap.org', '/data/2.5/weather',
           {'q': cityName, "units": "metric", "appid": apiKey});
       final http.Response response = await http.get(url);

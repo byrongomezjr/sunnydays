@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const WeatherPage(),
+      // ignore: prefer_const_constructors
+      home: WeatherPage(),
     );
   }
 }

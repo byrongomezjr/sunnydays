@@ -13,6 +13,7 @@ class WeatherPage extends StatefulWidget {
   State<WeatherPage> createState() => _WeatherPageState();
 }
 
+//Future Builder to call API asynchronously
 class _WeatherPageState extends State<WeatherPage> {
   Future<WeatherModel> getData(bool isCurrentCity, String cityName) async {
     return await CallToApi().callWeatherAPi(isCurrentCity, cityName);
@@ -75,12 +76,12 @@ class _WeatherPageState extends State<WeatherPage> {
                       AnimSearchBar(
                         rtl: true,
                         width: 400,
-                        color: const Color(0xffffb56b),
+                        color: const Color.fromARGB(255, 90, 188, 72),
                         textController: textController,
                         suffixIcon: const Icon(
                           Icons.search,
                           color: Colors.black,
-                          size: 26,
+                          size: 20,
                         ),
                         onSuffixTap: () async {
                           textController.text == ""
@@ -92,7 +93,9 @@ class _WeatherPageState extends State<WeatherPage> {
                           FocusScope.of(context).unfocus();
                           textController.clear();
                         },
+                        // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
                         style: f14RblackLetterSpacing2,
+                        // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
                         onSubmitted: (String) {},
                       ),
                       Expanded(
